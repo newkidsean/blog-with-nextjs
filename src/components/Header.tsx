@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import styled from 'styled-components';
 
 const Header = () => {
@@ -8,9 +9,15 @@ const Header = () => {
         <Title>Blog</Title>
       </CurrentLocation>
       <Menus>
-        <Menu>About</Menu>
-        <Menu>Blog</Menu>
-        <Menu>MyPage</Menu>
+        <Link href={'/about'} passHref>
+          <Menu>About</Menu>
+        </Link>
+        <Link href={'/'} passHref>
+          <Menu>Blog</Menu>
+        </Link>
+        <Link href={'/mypage'} passHref>
+          <Menu>MyPage</Menu>
+        </Link>
       </Menus>
     </HeaderWrapper>
   );
@@ -30,8 +37,6 @@ const CurrentLocation = styled.div`
   font-weight: bold;
 `;
 const Title = styled.div`
-  font-size: 8rem;
-  font-weight: bold;
   margin-left: 1rem;
 `;
 const Menus = styled.div`
@@ -42,4 +47,5 @@ const Menu = styled.div`
   margin: 0 2rem;
   font-size: 2rem;
   font-weight: bold;
+  cursor: pointer;
 `;
