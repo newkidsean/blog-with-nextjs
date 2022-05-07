@@ -33,7 +33,7 @@ const HeaderWrapper = styled.div`
 `;
 
 const CurrentLocation = styled.div`
-  font-size: 8rem;
+  font-size: 9rem;
   font-weight: bold;
 `;
 const Title = styled.div`
