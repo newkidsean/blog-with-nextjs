@@ -4,7 +4,6 @@ export const MainPostContainer = styled.div``;
 export const MainPost = styled.div`
   align-content: center;
   justify-content: center;
-  /* margin-left: 5rem; */
 `;
 export const PostInfo = styled.div`
   display: flex;
@@ -21,7 +20,6 @@ export const ArticleNAuthor = styled.div``;
 export const Article = styled.p`
   font-size: 1.8rem;
   width: 45vw;
-  /* text-align: end; */
 `;
 export const Author = styled.p`
   font-size: 2rem;
