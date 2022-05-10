@@ -29,22 +29,21 @@ const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin: 5rem 6rem;
+  margin: 5rem 0 3rem 0;
 `;
 
 const CurrentLocation = styled.div`
-  font-size: 8rem;
+  font-size: 9rem;
   font-weight: bold;
 `;
 const Title = styled.div`
-  margin-left: 1rem;
+  margin-left: 2rem;
 `;
 const Menus = styled.div`
   display: flex;
-  margin-right: 2rem;
 `;
 const Menu = styled.div`
-  margin: 0 2rem;
+  margin-left: 2.5rem;
   font-size: 2rem;
   font-weight: bold;
   cursor: pointer;
