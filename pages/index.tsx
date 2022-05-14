@@ -13,7 +13,6 @@ export const getStaticProps: GetStaticProps = async context => {
   const mainArticlesResponse = await getMainArticles();
   const moreStoriesPhotoResponse = await getImagesForMoreStoriesPost();
   const moreStoriesArticlesResponse = await getMoreStoriesArticles();
-  // console.log('posts response', mainPostsResponse);
 
   return {
     props: {
@@ -31,13 +30,15 @@ const Home: NextPage = ({
   moreStoriesPhotoResponse,
   moreStoriesArticlesResponse,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  // console.log('mainPhotoResponse :', mainPhotoResponse);
   return (
     <>
       <Container>
         <Header />
         <MainPost photos={mainPhotoResponse} articles={mainArticlesResponse} />
-        <MoreStories />
+        <MoreStories
+          morePhotos={moreStoriesPhotoResponse}
+          moreArticles={moreStoriesArticlesResponse}
+        />
       </Container>
     </>
   );
