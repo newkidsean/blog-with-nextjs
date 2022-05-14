@@ -4,13 +4,16 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination, Autoplay } from 'swiper';
-import mockMainImg1 from '../images/main-mock-image-1.jpg';
-import mockMainImg2 from '../images/main-mock-image-2.jpg';
-import mockMainImg3 from '../images/main-mock-image-3.jpg';
-import mockMainImg4 from '../images/main-mock-image-4.jpg';
 import * as S from './MainPostStyle';
+import { PostImageConnector } from './utils/PostImageConnector';
+import { PhotosList, Articles } from './type/type';
 
-const MainPost = () => {
+type MainPostProps = {
+  photos: PhotosList;
+  articles: Articles;
+};
+const MainPost = ({ photos, articles }: MainPostProps) => {
+  const postsList = PostImageConnector(photos, articles);
   return (
     <S.MainPostContainer>
       <Swiper
@@ -26,98 +29,28 @@ const MainPost = () => {
           el: '.swiper-pagination',
         }}
       >
-        <SwiperSlide>
-          <S.MainPost>
-            <Image
-              src={mockMainImg1}
-              alt="main image"
-              width={1175}
-              height={660}
-            />
-            <S.PostInfo>
-              <S.Title>Post Title</S.Title>
-              <S.ArticleNAuthor>
-                <S.Article>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum, beatae molestias. Praesentium obcaecati, modi fuga
-                  laborum architecto optio aliquid deleniti voluptates impedit
-                  hic similique laboriosam. Consequatur, rem assumenda. Amet,
-                  aperiam.
-                </S.Article>
-                <S.Author>Sean</S.Author>
-              </S.ArticleNAuthor>
-            </S.PostInfo>
-          </S.MainPost>
-        </SwiperSlide>
-        <SwiperSlide>
-          <S.MainPost>
-            <Image
-              src={mockMainImg2}
-              alt="main image"
-              width={1175}
-              height={660}
-            />
-            <S.PostInfo>
-              <S.Title>Post Title</S.Title>
-              <S.ArticleNAuthor>
-                <S.Article>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum, beatae molestias. Praesentium obcaecati, modi fuga
-                  laborum architecto optio aliquid deleniti voluptates impedit
-                  hic similique laboriosam. Consequatur, rem assumenda. Amet,
-                  aperiam.
-                </S.Article>
-                <S.Author>Sean</S.Author>
-              </S.ArticleNAuthor>
-            </S.PostInfo>
-          </S.MainPost>
-        </SwiperSlide>
-        <SwiperSlide>
-          <S.MainPost>
-            <Image
-              src={mockMainImg3}
-              alt="main image"
-              width={1175}
-              height={660}
-            />
-            <S.PostInfo>
-              <S.Title>Post Title</S.Title>
-              <S.ArticleNAuthor>
-                <S.Article>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum, beatae molestias. Praesentium obcaecati, modi fuga
-                  laborum architecto optio aliquid deleniti voluptates impedit
-                  hic similique laboriosam. Consequatur, rem assumenda. Amet,
-                  aperiam.
-                </S.Article>
-                <S.Author>Sean</S.Author>
-              </S.ArticleNAuthor>
-            </S.PostInfo>
-          </S.MainPost>
-        </SwiperSlide>
-        <SwiperSlide>
-          <S.MainPost>
-            <Image
-              src={mockMainImg4}
-              alt="main image"
-              width={1175}
-              height={660}
-            />
-            <S.PostInfo>
-              <S.Title>Post Title</S.Title>
-              <S.ArticleNAuthor>
-                <S.Article>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum, beatae molestias. Praesentium obcaecati, modi fuga
-                  laborum architecto optio aliquid deleniti voluptates impedit
-                  hic similique laboriosam. Consequatur, rem assumenda. Amet,
-                  aperiam.
-                </S.Article>
-                <S.Author>Sean</S.Author>
-              </S.ArticleNAuthor>
-            </S.PostInfo>
-          </S.MainPost>
-        </SwiperSlide>
+        {postsList.map(post => {
+          return (
+            <SwiperSlide key={post.id}>
+              <S.MainPost>
+                <Image
+                  src={post.mainImage}
+                  alt="main image"
+                  layout="responsive"
+                  width={1080}
+                  height={607}
+                />
+                <S.PostInfo>
+                  <S.Title>{post.title}</S.Title>
+                  <S.ArticleNAuthor>
+                    <S.Article>{post.body}</S.Article>
+                    {/* <S.Author></S.Author> */}
+                  </S.ArticleNAuthor>
+                </S.PostInfo>
+              </S.MainPost>
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </S.MainPostContainer>
   );
