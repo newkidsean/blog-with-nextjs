@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -6,14 +6,44 @@ import 'swiper/css/pagination';
 import { Pagination, Autoplay } from 'swiper';
 import * as S from './MainPostStyle';
 import { PostImageConnector } from './utils/PostImageConnector';
-import { PhotosList, Articles } from './type/type';
+import { PostsList } from './type/type';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { getMainPostImage, mainImageSelector } from '../redux/mainImageSlice';
+import {
+  getMainPostArticle,
+  mainArticleSelector,
+} from '../redux/mainArticleSlice';
 
-type MainPostProps = {
-  photos: PhotosList;
-  articles: Articles;
-};
-const MainPost = ({ photos, articles }: MainPostProps) => {
-  const postsList = PostImageConnector(photos, articles);
+const MainPost: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const {
+    data: imageData,
+    pending: imagePending,
+    error: imageError,
+  } = useAppSelector(mainImageSelector);
+  const {
+    data: articleData,
+    pending: articlePending,
+    error: articleError,
+  } = useAppSelector(mainArticleSelector);
+
+  const [postsList, setPostsList] = useState<PostsList>([]);
+
+  useEffect(() => {
+    dispatch(getMainPostImage());
+    dispatch(getMainPostArticle());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (imageData && articleData) {
+      const posts = PostImageConnector(imageData, articleData);
+      console.log('posts :', posts);
+      setPostsList(posts);
+    }
+  }, [imageData, articleData]);
+
+  if (imagePending || articlePending) return <div>waiting...</div>;
+  if (imageError || articleError) return <div>Something went wrong...</div>;
   return (
     <S.MainPostContainer>
       <Swiper
