@@ -1,7 +1,9 @@
-export type Thumb = string;
-export type MainImage = string;
+export type MainImage = {
+  thumb: string;
+  main: string;
+};
 export type MainImageState = {
-  data: [Thumb, MainImage] | null;
+  data: MainImage[] | null;
   pending: boolean;
   error: boolean;
 };
@@ -17,3 +19,12 @@ export type MainArticleState = {
   pending: boolean;
   error: boolean;
 };
+
+export type RawImage = {
+  raw: string;
+  full: string;
+  regular: string;
+  small: string;
+  thumb: string;
+};
+export type RawImageList = RawImage[];

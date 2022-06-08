@@ -3,21 +3,17 @@ import styled from 'styled-components';
 import Header from '../src/components/Header';
 import MainPost from '../src/components/MainPost';
 import MoreStories from '../src/components/MoreStories';
-import { getImagesForMainPost } from '../lib/main-posts-images';
-import { getMainArticles } from '../lib/main-posts-articles';
 import { getMoreStoriesArticles } from '../lib/more-stories-articles';
 import { getImagesForMoreStoriesPost } from '../lib/more-stories-images';
 
 export const getStaticProps: GetStaticProps = async context => {
-  const mainPhotoResponse = await getImagesForMainPost();
-  const mainArticlesResponse = await getMainArticles();
+  // const mainPhotoResponse = await getImagesForMainPost();
+  // const mainArticlesResponse = await getMainArticles();
   const moreStoriesPhotoResponse = await getImagesForMoreStoriesPost();
   const moreStoriesArticlesResponse = await getMoreStoriesArticles();
 
   return {
     props: {
-      mainPhotoResponse,
-      mainArticlesResponse,
       moreStoriesPhotoResponse,
       moreStoriesArticlesResponse,
     },
@@ -25,8 +21,6 @@ export const getStaticProps: GetStaticProps = async context => {
 };
 
 const Home: NextPage = ({
-  mainPhotoResponse,
-  mainArticlesResponse,
   moreStoriesPhotoResponse,
   moreStoriesArticlesResponse,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
@@ -34,7 +28,7 @@ const Home: NextPage = ({
     <>
       <Container>
         <Header />
-        <MainPost photos={mainPhotoResponse} articles={mainArticlesResponse} />
+        <MainPost />
         <MoreStories
           morePhotos={moreStoriesPhotoResponse}
           moreArticles={moreStoriesArticlesResponse}

@@ -1,4 +1,8 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createSelector,
+  createSlice,
+} from '@reduxjs/toolkit';
 import { createApi } from 'unsplash-js';
 import type { RootState } from './store';
 import type { MainImageState } from './type';
@@ -12,7 +16,14 @@ const initialState: MainImageState = {
   pending: false,
   error: false,
 };
-
+const imageResponseEditor = (imageRawData: any) => {
+  return imageRawData.map((image: any) => {
+    return {
+      thumb: image.urls.thumb,
+      main: image.urls.regular,
+    };
+  });
+};
 export const getMainPostImage = createAsyncThunk(
   'mainPostImage/mainImage',
   async () => {
@@ -22,10 +33,8 @@ export const getMainPostImage = createAsyncThunk(
     });
 
     const mainImagesResponse = mainImages.response?.results;
-    const thumbnail = mainImagesResponse?.map(image => image.urls.thumb);
-    const main = mainImagesResponse?.map(image => image.urls.regular);
-
-    return [thumbnail, main];
+    const editedImages = imageResponseEditor(mainImagesResponse);
+    return editedImages;
   }
 );
 
@@ -50,4 +59,8 @@ export const mainImageSlice = createSlice({
 });
 
 export const selectMainPostImage = (state: RootState) => state.mainImage;
+export const mainImageSelector = createSelector(
+  selectMainPostImage,
+  state => state
+);
 export default mainImageSlice.reducer;

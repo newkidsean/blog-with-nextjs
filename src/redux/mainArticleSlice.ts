@@ -1,4 +1,8 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createSelector,
+  createSlice,
+} from '@reduxjs/toolkit';
 import axios from 'axios';
 import type { RootState } from './store';
 import type { MainArticleState } from './type';
@@ -45,4 +49,8 @@ export const mainArticleSlice = createSlice({
 });
 
 export const selectMainPostArticle = (state: RootState) => state.mainArticle;
+export const mainArticleSelector = createSelector(
+  selectMainPostArticle,
+  state => state
+);
 export default mainArticleSlice.reducer;

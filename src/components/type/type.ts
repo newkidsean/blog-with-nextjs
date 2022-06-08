@@ -1,7 +1,11 @@
 export type Photo = string;
 export type ThumbnailList = Photo[];
 export type MainImageList = Photo[];
-export type PhotosList = [ThumbnailList, MainImageList];
+export type MainImage = {
+  thumb: string | undefined;
+  main: string | undefined;
+};
+export type PhotosList = MainImage[];
 export type Article = {
   userId: number;
   id: number;
@@ -10,7 +14,7 @@ export type Article = {
 };
 export type Articles = Article[];
 export type Post = Article & {
-  thumbnail: string;
-  mainImage: string;
+  thumbnail: string | undefined;
+  mainImage: string | undefined;
 };
 export type PostsList = Post[];
