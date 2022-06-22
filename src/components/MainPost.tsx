@@ -37,7 +37,6 @@ const MainPost: React.FC = () => {
   useEffect(() => {
     if (imageData && articleData) {
       const posts = PostImageConnector(imageData, articleData);
-      console.log('posts :', posts);
       setPostsList(posts);
     }
   }, [imageData, articleData]);
@@ -63,13 +62,15 @@ const MainPost: React.FC = () => {
           return (
             <SwiperSlide key={post.id}>
               <S.MainPost>
-                <Image
-                  src={post.mainImage}
-                  alt="main image"
-                  layout="responsive"
-                  width={1080}
-                  height={607}
-                />
+                {post.mainImage && (
+                  <Image
+                    src={post.mainImage}
+                    alt="main image"
+                    layout="responsive"
+                    width={1080}
+                    height={607}
+                  />
+                )}
                 <S.PostInfo>
                   <S.Title>{post.title}</S.Title>
                   <S.ArticleNAuthor>
