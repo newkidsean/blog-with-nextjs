@@ -4,10 +4,11 @@ import * as S from './StoryCardStyle';
 import { Post } from './type/type';
 
 const StoryCard = ({ userId, id, title, body, thumbnail }: Post) => {
+  // console.log('thumbnail :', thumbnail);
   return (
     <>
       {thumbnail && (
-        <S.StoryContainer>
+        <S.StoryContainer key={id}>
           <Image src={thumbnail} alt="more image 1" width={600} height={370} />
           <S.MoreStoryTitle>{title}</S.MoreStoryTitle>
           <S.MoreStoryArticle>{body}</S.MoreStoryArticle>

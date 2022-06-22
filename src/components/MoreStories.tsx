@@ -3,8 +3,8 @@ import useSWR from 'swr';
 import styled from 'styled-components';
 import StoryCard from './StoryCard';
 import { PostsList } from './type/type';
-import { getMoreStoriesArticles } from '../../lib/more-stories-articles';
-import { getImagesForMoreStoriesPost } from '../../lib/more-stories-images';
+import { getArticlesForMoreStories } from '../../lib/more-stories-articles';
+import { getImagesForMoreStories } from '../../lib/more-stories-images';
 import { PostImageConnector } from './utils/PostImageConnector';
 
 const MoreStoriesWrapper = styled.div``;
@@ -24,19 +24,22 @@ const MoreStories = () => {
     data: morePhotos,
     error: photoError,
     isValidating: photoLoading,
-  } = useSWR(
-    'https://jsonplaceholder.typicode.com/posts',
-    getMoreStoriesArticles
-  );
+  } = useSWR('https://api.unsplash.com/photos', getImagesForMoreStories);
   const {
     data: moreArticles,
     error: articleError,
     isValidating: articleLoading,
-  } = useSWR('https://api.unsplash.com/photos', getImagesForMoreStoriesPost);
+  } = useSWR(
+    'https://jsonplaceholder.typicode.com/posts',
+    getArticlesForMoreStories
+  );
+  console.log('morePhotos :', morePhotos);
+  console.log('moreArticles :', moreArticles);
   const moreStoriesList: PostsList = PostImageConnector(
     morePhotos,
     moreArticles
   );
+  console.log('moreStoriesList :', moreStoriesList);
   if (photoLoading || articleLoading) return <div>Loading...</div>;
   if (photoError || articleError) return <div>Something went wrong...</div>;
   return (

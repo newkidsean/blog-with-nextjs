@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import Header from '../src/components/Header';
 import MainPost from '../src/components/MainPost';
 import MoreStories from '../src/components/MoreStories';
-import { getMoreStoriesArticles } from '../lib/more-stories-articles';
-import { getImagesForMoreStoriesPost } from '../lib/more-stories-images';
+import { getArticlesForMoreStories } from '../lib/more-stories-articles';
+import { getImagesForMoreStories } from '../lib/more-stories-images';
 
 export const getStaticProps: GetStaticProps = async context => {
-  const moreStoriesPhotoResponse = await getImagesForMoreStoriesPost();
-  const moreStoriesArticlesResponse = await getMoreStoriesArticles();
+  const moreStoriesPhotoResponse = await getImagesForMoreStories();
+  const moreStoriesArticlesResponse = await getArticlesForMoreStories();
 
   return {
     props: {
