@@ -33,13 +33,13 @@ const MoreStories = () => {
     'https://jsonplaceholder.typicode.com/posts',
     getArticlesForMoreStories
   );
-  console.log('morePhotos :', morePhotos);
-  console.log('moreArticles :', moreArticles);
+  // console.log('morePhotos :', morePhotos);
+  // console.log('moreArticles :', moreArticles);
   const moreStoriesList: PostsList = PostImageConnector(
     morePhotos,
     moreArticles
   );
-  console.log('moreStoriesList :', moreStoriesList);
+  // console.log('moreStoriesList :', moreStoriesList);
   if (photoLoading || articleLoading) return <div>Loading...</div>;
   if (photoError || articleError) return <div>Something went wrong...</div>;
   return (

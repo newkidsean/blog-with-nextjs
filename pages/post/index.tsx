@@ -5,11 +5,12 @@ import type {
 } from 'next';
 import { SWRConfig } from 'swr';
 import styled from 'styled-components';
-import Header from '../src/components/Header';
-import MainPost from '../src/components/MainPost';
-import MoreStories from '../src/components/MoreStories';
-import { getArticlesForMoreStories } from '../lib/more-stories-articles';
-import { getImagesForMoreStories } from '../lib/more-stories-images';
+import Header from '../../src/components/Header';
+import Post from '../../src/components/Post/Post';
+import Reply from '../../src/components/Post/Reply';
+import MoreStories from '../../src/components/MoreStories';
+import { getArticlesForMoreStories } from '../../lib/more-stories-articles';
+import { getImagesForMoreStories } from '../../lib/more-stories-images';
 
 export const getServerSideProps: GetServerSideProps = async ({
   resolvedUrl,
@@ -29,22 +30,25 @@ export const getServerSideProps: GetServerSideProps = async ({
   };
 };
 
-const Home: NextPage = ({
+const PostPage: NextPage = ({
   fallback,
   resolvedUrl,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
-    <SWRConfig value={{ fallback }}>
-      <Container>
-        <Header resolvedUrl={resolvedUrl} />
-        <MainPost />
-        <MoreStories />
-      </Container>
-    </SWRConfig>
+    <>
+      <SWRConfig value={{ fallback }}>
+        <Container>
+          <Header resolvedUrl={resolvedUrl} />
+          <Post />
+          <Reply />
+          <MoreStories />
+        </Container>
+      </SWRConfig>
+    </>
   );
 };
 
-export default Home;
+export default PostPage;
 
 const Container = styled.div`
   width: 80vw;
