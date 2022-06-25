@@ -23,7 +23,7 @@ const MoreStoriesContainer = styled.div`
 `;
 const PAGE_SIZE = 10;
 const InfiniteMoreStories = () => {
-  const ref = useRef();
+  const ref = useRef<HTMLDivElement>(null);
   const isVisible = useScreenObserver(ref);
 
   // useSWRInfinite -> 사진 용 : 페이지네이션을 적용한 방법으로 수정 필요
@@ -49,11 +49,11 @@ const InfiniteMoreStories = () => {
     moreImage && moreArticle
       ? PostImageConnector(moreImage, moreArticle)
       : null;
-  console.log('moreImage :', moreImage);
-  console.log('moreArticle :', moreArticle);
-  console.log('newFetchedPostList :', newFetchedPostList);
-  // const moreStoriesList: PostsList =
-  //   newFetchedPostList !== null ? [].concat(...newFetchedPostList) : [];
+  // console.log('moreImage :', moreImage);
+  // console.log('moreArticle :', moreArticle);
+  // console.log('newFetchedPostList :', newFetchedPostList);
+  const moreStoriesList: PostsList =
+    newFetchedPostList !== null ? [].concat(...newFetchedPostList) : [];
   const isLoadingInitialData =
     !moreArticle && !moreImage && !articleError && !imageError;
   const isLoadingMore =
