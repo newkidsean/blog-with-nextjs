@@ -1,33 +1,42 @@
 import React from 'react';
+import useSWR from 'swr';
 import Image from 'next/image';
-import mainImage from '../../images/main-mock-image-1.jpg';
 import styled from 'styled-components';
+import { imageFetcher } from '@lib/imageFetcher';
+import { articleFetcher } from '@lib/articleFetcher';
 
-const Post = () => {
+type PropsType = {
+  postId: string;
+  imageUrl: string;
+};
+const Post = ({ postId, imageUrl }: PropsType) => {
+  const {
+    data: imageData,
+    error: imageError,
+    isValidating: imageValidating,
+  } = useSWR(`https://images.unsplash.com/${imageUrl}`, imageFetcher);
+  const {
+    data: articleData,
+    error: articleError,
+    isValidating: articleValidating,
+  } = useSWR(
+    `https://jsonplaceholder.typicode.com/posts/${postId}`,
+    articleFetcher
+  );
+
+  if (imageValidating || articleValidating) return <div>Loading...</div>;
+  if (imageError || articleError) return <div>Something went wrong...</div>;
   return (
     <>
       <Container>
-        <PostTitle>Post Title</PostTitle>
-        <Image src={mainImage} alt="main image" width={1080} height={607} />
-        <Article>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus
-          distinctio explicabo voluptates temporibus iste laudantium?
-          Exercitationem, expedita. Placeat consequuntur incidunt facere
-          cupiditate enim, delectus corporis quos explicabo vel repudiandae?
-          Officia. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Assumenda odio consequatur ad reprehenderit excepturi velit!
-          Distinctio fugiat consectetur iste quia qui deleniti ullam! Eaque
-          praesentium deleniti, corporis reiciendis culpa earum? Lorem ipsum
-          dolor sit amet consectetur adipisicing elit. Accusantium nisi dolorem
-          debitis praesentium omnis. Facilis, hic aut sunt neque natus, modi
-          perferendis corrupti nam cum sapiente minima possimus similique
-          ratione. Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          Provident aliquam alias quidem sunt eius rem quia? Magni, nam ratione?
-          Quo corrupti corporis iusto quos, at neque dicta nesciunt doloribus!
-          Enim tempora officiis, natus alias, deserunt facilis consequuntur
-          doloribus provident repudiandae minima perferendis. Quasi hic,
-          temporibus aperiam eaque deserunt sit aliquam.
-        </Article>
+        <PostTitle>{articleData.title}</PostTitle>
+        <Image
+          src={imageData[0].main}
+          alt="main image"
+          width={1080}
+          height={607}
+        />
+        <Article>{articleData.body}</Article>
       </Container>
     </>
   );

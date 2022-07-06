@@ -5,11 +5,11 @@ import type {
 } from 'next';
 import { SWRConfig } from 'swr';
 import styled from 'styled-components';
-import Header from '../src/components/Header';
-import MainPost from '../src/components/MainPost';
-import MoreStories from '../src/components/MoreStories';
-import { getArticlesForMoreStories } from '../lib/more-stories-articles';
-import { getImagesForMoreStories } from '../lib/more-stories-images';
+import Header from '@components/Header';
+import MainPost from '@components/MainPost';
+import MoreStories from '@components/MoreStories';
+import { getArticlesForMoreStories } from '@lib/more-stories-articles';
+import { getImagesForMoreStories } from '@lib/more-stories-images';
 
 export const getServerSideProps: GetServerSideProps = async ({
   resolvedUrl,

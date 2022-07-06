@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -7,15 +8,16 @@ import { Pagination, Autoplay } from 'swiper';
 import * as S from './MainPostStyle';
 import { PostImageConnector } from './utils/PostImageConnector';
 import { PostsList } from './type/type';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { getMainPostImage, mainImageSelector } from '../redux/mainImageSlice';
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
+import { getMainPostImage, mainImageSelector } from '@redux/mainImageSlice';
 import {
   getMainPostArticle,
   mainArticleSelector,
-} from '../redux/mainArticleSlice';
+} from '@redux/mainArticleSlice';
 
 const MainPost: React.FC = () => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const {
     data: imageData,
     pending: imagePending,
@@ -28,7 +30,7 @@ const MainPost: React.FC = () => {
   } = useAppSelector(mainArticleSelector);
 
   const [postsList, setPostsList] = useState<PostsList>([]);
-
+  console.log('post list :', postsList);
   useEffect(() => {
     dispatch(getMainPostImage());
     dispatch(getMainPostArticle());
@@ -40,6 +42,13 @@ const MainPost: React.FC = () => {
       setPostsList(posts);
     }
   }, [imageData, articleData]);
+
+  const handleImageClick = (e: React.MouseEvent<HTMLImageElement>) => {
+    const source = e.currentTarget.alt.split('/');
+    console.log(source);
+    const [https, blank, imageSouce, imageUrl, postId] = source;
+    router.push(`/post/${postId}/${imageUrl}`);
+  };
 
   if (imagePending || articlePending) return <div>waiting...</div>;
   if (imageError || articleError) return <div>Something went wrong...</div>;
@@ -64,8 +73,9 @@ const MainPost: React.FC = () => {
               <S.MainPost>
                 {post.mainImage && (
                   <Image
+                    onClick={handleImageClick}
                     src={post.mainImage}
-                    alt="main image"
+                    alt={`${post.mainImage}/${post.id}`}
                     layout="responsive"
                     width={1080}
                     height={607}
