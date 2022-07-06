@@ -3,8 +3,8 @@ import useSWR from 'swr';
 import styled from 'styled-components';
 import StoryCard from './StoryCard';
 import { PostsList } from './type/type';
-import { getArticlesForMoreStories } from '../../lib/more-stories-articles';
-import { getImagesForMoreStories } from '../../lib/more-stories-images';
+import { getArticlesForMoreStories } from '@lib/more-stories-articles';
+import { getImagesForMoreStories } from '@lib/more-stories-images';
 import { PostImageConnector } from './utils/PostImageConnector';
 
 const MoreStoriesWrapper = styled.div``;

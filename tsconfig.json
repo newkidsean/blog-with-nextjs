@@ -17,7 +17,16 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "baseUrl": "./",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@lib/*": ["lib/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@redux/*": ["src/redux/*"],
+      "@styles/*": ["src/styles/*"],
+      "@pages/*": ["pages/*"]
+    }
   },
   "include": [
     "src",
